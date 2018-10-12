@@ -1,6 +1,7 @@
 package Vrijdag1210;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -21,7 +22,10 @@ class Demo{
 		}else {
 			System.out.println("wordt een kort tournooi");
 		}
-		System.out.println(karateTournooi.deelnemers);
+
+		karateTournooi.speelWedstrijd();
+		karateTournooi.speelWedstrijd();
+		System.out.println("Wat een spanning dames en heren. De finale gaat tussen " + karateTournooi.deelnemers.get(0) + " en " + karateTournooi.deelnemers.get(1));
 		karateTournooi.speelWedstrijd();
 	}
 }
@@ -47,20 +51,34 @@ class Tournooi{
 		int antwoordNogEen = scanner.nextInt();
 		if(antwoordNogEen == 1) {
 			voegDeelnemersToe();
+		} else {
+			shuffleDeelnemers();
 		}
 	}
 	Deelnemer speelWedstrijd() {
 		System.out.println("Lets get ready to rumble");
 		System.out.println(deelnemers.get(0).naam + " speelt tegen " + deelnemers.get(1).naam);
-		
 		Deelnemer winnaar = deelnemers.get(random.nextInt(2));
 		System.out.println("De winnaar is: " + winnaar.naam);
+		deelnemers.remove(0);
+		deelnemers.remove(0);
+		deelnemers.add(deelnemers.size(), winnaar);
 		return winnaar;
+	}
+	void shuffleDeelnemers() {
+		Collections.shuffle(deelnemers);
+		System.out.println(deelnemers.get(0).naam + " speelt tegen " + deelnemers.get(1).naam);
+		System.out.println(deelnemers.get(2).naam + " speelt tegen " + deelnemers.get(3).naam);
+		
 	}
 }
 class Deelnemer{
 	String naam;
 	Deelnemer(String deNaam){
 		naam = deNaam;
+	}
+	@Override
+	public String toString() {
+		return naam;
 	}
 }
